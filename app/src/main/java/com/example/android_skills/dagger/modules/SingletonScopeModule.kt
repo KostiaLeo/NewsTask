@@ -8,7 +8,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module(includes = [ActivityBuilderModule::class])
-class SingletonModule {
+class SingletonScopeModule {
 
     @Provides
     @Singleton

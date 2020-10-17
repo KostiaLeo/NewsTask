@@ -69,7 +69,3 @@ annotation class FavouritesLiveData
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
 annotation class VideoLiveData
-
-@Qualifier
-@Retention(AnnotationRetention.RUNTIME)
-annotation class TopNewsLiveData

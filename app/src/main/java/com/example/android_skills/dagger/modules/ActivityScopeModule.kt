@@ -13,9 +13,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 import retrofit2.Retrofit
+import javax.inject.Qualifier
 
 @Module(includes = [FragmentBuilderModule::class])
-class ActivityModule {
+class ActivityScopeModule {
 
     @ActivityScope
     @Provides
@@ -29,20 +30,21 @@ class ActivityModule {
             .setInitialLoadSizeHint(5).build()
         val dataFactory = object : DataSource.Factory<Int, Item>() {
             override fun create(): DataSource<Int, Item> {
-                return ItemsDataSource(
-                    api
-                ) { it.top == "1" }
+                return ItemsDataSource(api) { it.top == "1" }
             }
         }
         return LivePagedListBuilder(dataFactory, config).build()
     }
-
 }
+
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class TopNewsLiveData
 
 @Module
 abstract class ActivityBuilderModule {
 
     @ActivityScope
-    @ContributesAndroidInjector(modules = [ActivityModule::class])
+    @ContributesAndroidInjector(modules = [ActivityScopeModule::class])
     abstract fun contributeActivityAndroidInjector(): MainActivity
 }
